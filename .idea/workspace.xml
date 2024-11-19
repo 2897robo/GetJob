@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="22c47ee7-e3fd-4600-b174-95f4d9b1862a" name="Changes" comment="Set up basic repository structure" />
+    <list default="true" id="22c47ee7-e3fd-4600-b174-95f4d9b1862a" name="Changes" comment="Setting gitignore">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,6 +68,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GetJob" />
       <recent name="D:\GetJob\4. 코딩테스트\src" />
     </key>
   </component>
@@ -98,7 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731979987360</updated>
       <workItem from="1731979988453" duration="193000" />
-      <workItem from="1731980324814" duration="1812000" />
+      <workItem from="1731980324814" duration="1940000" />
     </task>
     <task id="LOCAL-00001" summary="Set up basic repository structure">
       <option name="closed" value="true" />
@@ -108,7 +111,23 @@
       <option name="project" value="LOCAL" />
       <updated>1731981176393</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Setting gitignore">
+      <option name="closed" value="true" />
+      <created>1731982182917</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731982182917</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Setting gitignore">
+      <option name="closed" value="true" />
+      <created>1731982216512</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731982216512</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +135,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Set up basic repository structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set up basic repository structure" />
+    <MESSAGE value="Setting gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Setting gitignore" />
   </component>
 </project>
