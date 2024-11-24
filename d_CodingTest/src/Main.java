@@ -1,44 +1,17 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 public class Main {
-    // Method to perform selection sort
-    public static void selectionSort(int[] arr) {
-        int n = arr.length;
-
-        // Loop through the entire array
-        for (int i = 0; i < n - 1; i++) {
-            // Assume the minimum is the first element
-            int minIndex = i;
-            // Find the index of the minimum element
-            for (int j = i + 1; j < n; j++) {
-                if (arr[j] < arr[minIndex]) {
-                    minIndex = j;
-                }
-            }
-            // Swap the found minimum element with the first element
-            if (minIndex != i) {
-                int temp = arr[i];
-                arr[i] = arr[minIndex];
-                arr[minIndex] = temp;
-            }
-        }
+    public static void modifyArray(int[] arr) {
+        arr[0] = 10; // 배열 내부 값 변경
+        arr = new int[] {20, 30}; // 참조 자체 변경
     }
 
-    // Main method to test the selection sort
     public static void main(String[] args) {
-        int[] arr = {64, 25, 12, 22, 11};
-        System.out.println("Array before sorting: ");
-        printArray(arr);
-
-        selectionSort(arr);
-
-        System.out.println("Array after sorting: ");
-        printArray(arr);
-    }
-
-    // Method to print the array
-    static void printArray(int[] arr) {
-        for (int value : arr) {
-            System.out.print(value + " ");
-        }
-        System.out.println();
+        int[] array = {1, 2, 3};
+        modifyArray(array);
+        System.out.println(array); // 출력: 10 (내부 값 변경 반영)
+        // 그러나 array는 여전히 {1, 2, 3}을 가리킴.
     }
 }
