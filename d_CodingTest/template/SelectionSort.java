@@ -1,5 +1,4 @@
-public class Main {
-    // Method to perform selection sort
+public class SelectionSort {
     public static void selectionSort(int[] arr) {
         int n = arr.length;
 
@@ -20,25 +19,5 @@ public class Main {
                 arr[minIndex] = temp;
             }
         }
-    }
-
-    // Main method to test the selection sort
-    public static void main(String[] args) {
-        int[] arr = {64, 25, 12, 22, 11};
-        System.out.println("Array before sorting: ");
-        printArray(arr);
-
-        selectionSort(arr);
-
-        System.out.println("Array after sorting: ");
-        printArray(arr);
-    }
-
-    // Method to print the array
-    static void printArray(int[] arr) {
-        for (int value : arr) {
-            System.out.print(value + " ");
-        }
-        System.out.println();
     }
 }
