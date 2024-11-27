@@ -167,8 +167,116 @@ Comparator<Integer> comparator = new Comparator<Integer>() {
 람다식은 익명 클래스를 대체하여 코드의 가독성을 높입니다.
 
 ### 예시: 람다식으로 Comparator 구현
+## 예제 문제: 단어 정렬
+
+https://www.acmicpc.net/problem/1181
+
+### 문제 설명
+**정렬 조건**
+1. 단어의 길이가 짧은 순으로 정렬합니다.
+2. 길이가 같다면 **사전순**으로 정렬합니다.
+3. 중복된 단어는 **하나만 남기고 제거**해야 합니다.
+
+### 입력 예시
+```
+13
+but
+i
+wont
+hesitate
+no
+more
+no
+more
+it
+cannot
+wait
+im
+yours
+```
+
+### 출력 예시
+```
+i
+im
+it
+no
+but
+more
+wait
+wont
+yours
+cannot
+hesitate
+```
+
+---
+
+### 코드 구현
+
 ```java
-Comparator<Integer> comparator = (a, b) -> b - a;  // 내림차순 정렬
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(br.readLine());
+        Set<String> words = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            words.add(br.readLine());
+        }
+        br.close();
+
+        List<String> wordsList = new ArrayList<>(words);
+
+        // 정렬 기준 정의: 길이 -> 사전순
+        Collections.sort(wordsList, (String a, String b) -> {
+            return (a.length() == b.length()) ? a.compareTo(b) : a.length() - b.length();
+        });
+
+        // 결과 출력
+        for (String word : wordsList) {
+            System.out.println(word);
+        }
+    }
+}
+```
+
+---
+
+### 코드 설명
+1. **입력 처리**:  
+   `BufferedReader`를 사용하여 입력 데이터를 읽습니다.  
+   중복 단어를 제거하기 위해 `HashSet`에 저장합니다.
+
+2. **정렬 기준**:
+  - 먼저 단어의 **길이**를 기준으로 정렬합니다.
+  - 길이가 같으면 **사전순**으로 정렬합니다.
+  - 이를 위해 `Comparator`를 람다식으로 구현했습니다.
+
+3. **출력**:  
+   정렬된 리스트를 순서대로 출력합니다.
+
+---
+
+### 정렬 결과
+입력 예시를 실행하면 다음과 같은 결과를 출력합니다:
+```
+i
+im
+it
+no
+but
+more
+wait
+wont
+yours
+cannot
+hesitate
 ```
 
 ---
