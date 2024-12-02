@@ -21,15 +21,24 @@
 
 ## 예외의 분류
 
-Java에서는 예외를 크게 세 가지로 분류합니다.
+Java에서는 예외(Exceptions)를 효과적으로 처리하기 위해 두 가지 주요 유형으로 분류합니다. 각각의 예외는 **발생 원인**과 **처리 방식**이 다르며, 프로그램의 안정성을 높이고 오류 상황을 제어하는 데 중요한 역할을 합니다. 또한, 예외와 더불어 **Error**라는 별도의 시스템 오류도 존재합니다.
 
-### 1. Checked 예외 (Checked Exception)
-Checked 예외는 **컴파일 시점에 처리 여부를 확인해야 하는 예외**입니다. 이는 복구 가능성이 높은 예외로, 반드시 `try/catch` 블록으로 처리하거나 `throws` 절을 사용하여 호출자에게 예외를 전달해야 합니다.
+---
 
-#### 예제:
-- **FileNotFoundException**: 존재하지 않는 파일에 접근할 경우 발생.
-- **ClassNotFoundException**: 클래스 로딩 시 클래스를 찾을 수 없을 때 발생.
+## **1. Checked Exception (검사 예외)**
 
+### **정의**
+Checked Exception은 **컴파일 시점**에 예외 처리 여부를 검사받아야 하는 예외입니다. 즉, 이러한 예외를 처리하지 않으면 컴파일 자체가 실패합니다. 이는 예외 상황이 **예측 가능**하며, 호출하는 쪽에서 이를 처리하거나 호출자에게 전달하는 방식으로 복구할 수 있도록 설계되었습니다.
+
+### **특징**
+- **컴파일러 강제**: 반드시 `try-catch` 블록 또는 `throws` 절을 사용해 예외를 처리해야 합니다.
+- **복구 가능성**: 외부 자원(파일, 네트워크, 데이터베이스 등)과 상호작용할 때 발생할 가능성이 높은 예외.
+- **예제**: `IOException`, `SQLException`, `ClassNotFoundException`, `FileNotFoundException` 등.
+
+### **사용 사례**
+Checked Exception은 주로 **외부 환경**과의 상호작용에서 발생할 수 있는 예외를 처리하는 데 적합합니다. 예를 들어, 파일 입출력, 네트워크 통신, 데이터베이스 접근 등 복구 가능한 상황에서 사용됩니다.
+
+### **예제 코드**
 ```java
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,6 +47,7 @@ import java.util.Scanner;
 public class CheckedExceptionExample {
     public static void main(String[] args) {
         try {
+            // 파일을 읽으려고 시도
             Scanner scanner = new Scanner(new File("nonexistent.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("파일을 찾을 수 없습니다.");
@@ -47,29 +57,135 @@ public class CheckedExceptionExample {
 }
 ```
 
-### 2. Unchecked 예외 (Unchecked Exception)
-Unchecked 예외는 **RuntimeException 클래스의 하위 클래스**로, 명시적으로 예외 처리를 강제하지 않습니다. 이는 대부분 프로그래밍 오류로 인해 발생하며, 개발자가 예측 가능한 경우가 많습니다.
+위 코드는 파일이 존재하지 않을 경우 `FileNotFoundException`을 발생시키며, `try-catch` 블록으로 이를 처리합니다.
 
-#### 예제:
-- **ArrayIndexOutOfBoundsException**: 배열의 유효 범위를 벗어난 인덱스 접근 시 발생.
-- **NullPointerException**: `null` 값을 참조하려고 할 때 발생.
+---
 
+## **2. Unchecked Exception (비검사 예외)**
+
+### **정의**
+Unchecked Exception은 **런타임 시점**에 발생하는 예외로, 컴파일러가 예외 처리 여부를 강제하지 않습니다. 대부분 프로그래밍 실수 또는 논리적 오류로 인해 발생하며, 프로그램의 결함으로 간주되는 경우가 많습니다.
+
+### **특징**
+- **컴파일러 비강제**: 예외 처리를 강제하지 않으므로, 필요에 따라 개발자가 직접 처리하거나 예외를 무시할 수 있습니다.
+- **주로 논리적 오류**: 잘못된 코드로 인해 발생하는 예외.
+- **예제**: `NullPointerException`, `ArrayIndexOutOfBoundsException`, `ArithmeticException`, `IllegalArgumentException` 등.
+
+### **사용 사례**
+Unchecked Exception은 주로 **프로그래밍 오류**와 관련된 상황에서 사용됩니다. 예를 들어, 잘못된 인덱스 접근, `null` 참조, 잘못된 메서드 인자 등이 포함됩니다.
+
+### **예제 코드**
 ```java
 public class UncheckedExceptionExample {
     public static void main(String[] args) {
         try {
             int[] numbers = {1, 2, 3};
-            System.out.println(numbers[5]); // ArrayIndexOutOfBoundsException 발생
+            // 잘못된 배열 인덱스 접근
+            System.out.println(numbers[5]);
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("배열 인덱스 초과!");
+            e.printStackTrace();
+        }
+
+        try {
+            String text = null;
+            // Null 값을 참조하려고 시도
+            System.out.println(text.length());
+        } catch (NullPointerException e) {
+            System.out.println("널 참조 오류!");
             e.printStackTrace();
         }
     }
 }
 ```
 
-### 3. Error
-Error는 **심각한 시스템 수준의 문제**를 나타내며, 일반적으로 프로그램에서 복구할 수 없습니다. 예를 들어 메모리 부족(OutOfMemoryError)과 같은 문제가 발생하면 시스템 수준에서 개입이 필요합니다.
+---
+
+## **3. Checked vs Unchecked: 언제 사용해야 할까?**
+
+### **Checked Exception**
+- 외부 환경과의 상호작용에서 발생할 가능성이 높은 예외.
+- 복구 가능성이 높고, 호출자가 적절히 처리해야 하는 예외.
+- 예:
+    - 파일이 존재하지 않을 때: `FileNotFoundException`
+    - 네트워크 연결이 끊겼을 때: `IOException`
+    - 데이터베이스 연결 실패: `SQLException`
+
+### **Unchecked Exception**
+- 프로그래머의 실수로 인해 발생하는 예외.
+- 복구 가능성이 낮고, 호출자가 처리하지 않아도 되는 예외.
+- 예:
+    - 잘못된 데이터 접근: `ArrayIndexOutOfBoundsException`
+    - `null` 참조: `NullPointerException`
+    - 잘못된 연산: `ArithmeticException`
+
+### **결론**
+Checked Exception은 복구 가능성이 높은 외부적인 문제를 처리할 때 사용하고, Unchecked Exception은 복구할 필요가 없는 코드의 논리적 오류를 처리하는 데 적합합니다.
+
+---
+
+## **4. Error와 Exception의 차이**
+
+### **Error**
+- JVM에서 발생하는 심각한 오류.
+- 복구 불가능하며, 애플리케이션 코드에서 처리하지 않는 것이 일반적.
+- 예: `OutOfMemoryError`, `StackOverflowError`, `VirtualMachineError`.
+
+### **Exception**
+- 프로그램 실행 중 발생하는 오류 상황.
+- 복구 가능성이 있으며, `try-catch` 또는 `throws`로 처리 가능.
+- Checked Exception과 Unchecked Exception으로 구분.
+
+---
+
+## **5. 혼합 예제: Checked와 Unchecked**
+
+아래 코드는 Checked Exception과 Unchecked Exception을 함께 처리하는 방법을 보여줍니다.
+
+```java
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class MixedExceptionExample {
+    public static void main(String[] args) {
+        try {
+            // Checked Exception: FileNotFoundException
+            Scanner scanner = new Scanner(new File("example.txt"));
+
+            // Unchecked Exception: ArrayIndexOutOfBoundsException
+            int[] numbers = {1, 2, 3};
+            System.out.println(numbers[5]);
+        } catch (FileNotFoundException e) {
+            System.out.println("파일을 찾을 수 없습니다.");
+            e.printStackTrace();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("배열 인덱스 초과!");
+            e.printStackTrace();
+        } finally {
+            System.out.println("예외 처리 완료.");
+        }
+    }
+}
+```
+
+---
+
+## **6. 예외 처리의 Best Practice**
+
+1. **Checked Exception 처리**
+    - 외부 자원과의 상호작용에서 예외를 호출자에게 명확히 전달.
+    - 불필요한 예외 전파를 줄이고, 필요한 경우만 처리.
+
+2. **Unchecked Exception 처리**
+    - 코드 품질을 높여 예외를 예방.
+    - 발생한 예외는 프로그램 종료 전 로깅(logging) 처리.
+
+3. **`finally` 블록 사용**
+    - 자원 정리(예: 파일 닫기, 네트워크 연결 해제 등) 보장.
+
+4. **사용자 정의 예외**
+    - 프로그램의 도메인에 적합한 의미 있는 예외 생성.
 
 ---
 
