@@ -2,31 +2,39 @@
 
 ---
 
-### This repository was created to assist in the process of securing a job.
+## Purpose
+This repository was created to systematically organize learning materials and resources for job preparation, covering topics ranging from computer science fundamentals to career development.
 
-This repository organizes study materials and resources on various topics. Each folder covers a specific topic or technology.
+---
 
-## Folder Structure
+## 📂 Folder Structure
 
-| Folder Name                    | Description                                 | Link                                                                 |
-| ------------------------------- | ------------------------------------------- | -------------------------------------------------------------------- |
-| [**a_Math**](https://github.com/2897robo/GetJob/tree/main/a_Math)        | Math-related study materials                 | [a_Math](https://github.com/2897robo/GetJob/tree/main/a_Math)        |
-| [**b_Java**](https://github.com/2897robo/GetJob/tree/main/b_Java)        | Materials on the Java programming language    | [b_Java](https://github.com/2897robo/GetJob/tree/main/b_Java)        |
-| [**c_DataStructure&Algorithm**](https://github.com/2897robo/GetJob/tree/main/c_DataStructure&Algorithm) | Materials on data structures and algorithms   | [c_DataStructure&Algorithm](https://github.com/2897robo/GetJob/tree/main/c_DataStructure&Algorithm) |
-| [**d_CodingTest**](https://github.com/2897robo/GetJob/tree/main/d_CodingTest)   | Coding test preparation materials             | [d_CodingTest](https://github.com/2897robo/GetJob/tree/main/d_CodingTest) |
-| [**e_ComputerArchitecture**](https://github.com/2897robo/GetJob/tree/main/e_ComputerArchitecture) | Materials on computer architecture            | [e_ComputerArchitecture](https://github.com/2897robo/GetJob/tree/main/e_ComputerArchitecture) |
-| [**f_OS**](https://github.com/2897robo/GetJob/tree/main/f_OS)           | Materials on operating systems                | [f_OS](https://github.com/2897robo/GetJob/tree/main/f_OS)           |
-| [**g_Git**](https://github.com/2897robo/GetJob/tree/main/g_Git)         | Materials on Git and version control          | [g_Git](https://github.com/2897robo/GetJob/tree/main/g_Git)         |
-| [**h_DB**](https://github.com/2897robo/GetJob/tree/main/h_DB)           | Materials on databases                        | [h_DB](https://github.com/2897robo/GetJob/tree/main/h_DB)           |
-| [**i_Spring**](https://github.com/2897robo/GetJob/tree/main/i_Spring)   | Materials on the Spring framework             | [i_Spring](https://github.com/2897robo/GetJob/tree/main/i_Spring)   |
-| [**j_JPA**](https://github.com/2897robo/GetJob/tree/main/j_JPA)         | Materials on Java Persistence API (JPA)       | [j_JPA](https://github.com/2897robo/GetJob/tree/main/j_JPA)         |
-| [**k_Projects**](https://github.com/2897robo/GetJob/tree/main/k_Projects)     | Personal projects and sample code             | [k_Projects](https://github.com/2897robo/GetJob/tree/main/k_Projects)     |
-| [**l_Resume**](https://github.com/2897robo/GetJob/tree/main/l_Resume)         | Materials on resume writing                   | [l_Resume](https://github.com/2897robo/GetJob/tree/main/l_Resume)         |
-| [**m_PersonalStatement**](https://github.com/2897robo/GetJob/tree/main/m_PersonalStatement) | Materials on personal statement writing       | [m_PersonalStatement](https://github.com/2897robo/GetJob/tree/main/m_PersonalStatement) |
-| [**n_Portfolio**](https://github.com/2897robo/GetJob/tree/main/n_Portfolio)   | Materials on portfolio building               | [n_Portfolio](https://github.com/2897robo/GetJob/tree/main/n_Portfolio)   |
-| [**o_Certificates**](https://github.com/2897robo/GetJob/tree/main/o_Certificates) | Materials on certifications                   | [o_Certificates](https://github.com/2897robo/GetJob/tree/main/o_Certificates) |
-| [**p_ETC**](https://github.com/2897robo/GetJob/tree/main/p_ETC)           | Miscellaneous materials                       | [p_ETC](https://github.com/2897robo/GetJob/tree/main/p_ETC)           |
+| Folder Name                         | Description                                     | Link |
+|--------------------------------------|-------------------------------------------------|------|
+| **A_Mathematics**   | Math-related study materials (complexity, probability, etc.) | [🔗](https://github.com/2897robo/GetJob/tree/main/A_Mathematics) |
+| **B_Java**                 | Java programming language fundamentals, OOP, collections, and more | [🔗](https://github.com/2897robo/GetJob/tree/main/B_Java) |
+| **C_Coding Test**  | Coding test preparation and problem-solving strategies | [🔗](https://github.com/2897robo/GetJob/tree/main/C_Coding%20Test) |
+| **D_Git**                   | Git version control, workflows, and best practices | [🔗](https://github.com/2897robo/GetJob/tree/main/D_Git) |
+| **E_Computer Science** | Core CS concepts including algorithms, OS, networking, and logic circuits | [🔗](https://github.com/2897robo/GetJob/tree/main/E_Computer%20Science) |
+| **F_Databases**       | Relational and NoSQL databases, query optimization, and transactions | [🔗](https://github.com/2897robo/GetJob/tree/main/F_Databases) |
+| **G_Spring Framework** | Spring Framework, Spring Boot, JPA, and related technologies | [🔗](https://github.com/2897robo/GetJob/tree/main/G_Spring%20Framework) |
+| **H_Projects**         | Personal projects and real-world applications | [🔗](https://github.com/2897robo/GetJob/tree/main/H_Projects) |
+| **I_Open Source Contributions** | Contributions to open-source projects and community work | [🔗](https://github.com/2897robo/GetJob/tree/main/I_Open%20Source%20Contributions) |
+| **J_Industry and Company Analysis** | Market trends, company research, and industry insights | [🔗](https://github.com/2897robo/GetJob/tree/main/J_Industry%20and%20Company%20Analysis) |
+| **K_Resumes and Cover Letters** | Resume writing and cover letter tips | [🔗](https://github.com/2897robo/GetJob/tree/main/K_Resumes%20and%20Cover%20Letters) |
+| **L_Interview Preparation** | Common interview questions, behavioral interview strategies, and mock interview notes | [🔗](https://github.com/2897robo/GetJob/tree/main/L_Interview%20Preparation) |
+| **M_Career**             | Career development, networking, and soft skills | [🔗](https://github.com/2897robo/GetJob/tree/main/M_Career) |
 
-## How to Use
+---
 
-Each folder contains relevant materials and links. Please browse through the folders to find the information you need.
+## 📌 How to Use
+Each folder contains relevant learning materials, categorized for structured studying. Browse through the folders to find the topics you're interested in.
+
+---
+
+✅ **Key Changes:**
+1. **All links now point to the online GitHub repository (`https://github.com/2897robo/GetJob/tree/main/폴더명`)**
+2. **Table formatting improved for readability**
+3. **Consistent folder naming and descriptions**
+
+🔥 **이제 `README.md`를 커밋하고 푸시하면 완벽한 정리 완료!** 🚀
