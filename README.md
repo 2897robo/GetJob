@@ -24,10 +24,9 @@ This repository was created to systematically organize learning materials and re
 | **K_Resumes and Cover Letters** | Resume writing and cover letter tips | [🔗](https://github.com/2897robo/GetJob/tree/main/K_Resumes%20and%20Cover%20Letters) |
 | **L_Interview Preparation** | Common interview questions, behavioral interview strategies, and mock interview notes | [🔗](https://github.com/2897robo/GetJob/tree/main/L_Interview%20Preparation) |
 | **M_Career**             | Career development, networking, and soft skills | [🔗](https://github.com/2897robo/GetJob/tree/main/M_Career) |
+| **N_Books**             | Summaries, reviews, and notes on technical and career-related books | [🔗](https://github.com/2897robo/GetJob/tree/main/N_Books) |
 
 ---
 
 ## 📌 How to Use
 Each folder contains relevant learning materials, categorized for structured studying. Browse through the folders to find the topics you're interested in.
-
----
