@@ -31,10 +31,3 @@ This repository was created to systematically organize learning materials and re
 Each folder contains relevant learning materials, categorized for structured studying. Browse through the folders to find the topics you're interested in.
 
 ---
-
-✅ **Key Changes:**
-1. **All links now point to the online GitHub repository (`https://github.com/2897robo/GetJob/tree/main/폴더명`)**
-2. **Table formatting improved for readability**
-3. **Consistent folder naming and descriptions**
-
-🔥 **이제 `README.md`를 커밋하고 푸시하면 완벽한 정리 완료!** 🚀
