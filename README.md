@@ -21,7 +21,7 @@ This repository was created to systematically organize learning materials and re
 | **H_Projects**         | Personal projects and real-world applications | [🔗](https://github.com/2897robo/GetJob/tree/main/H_Projects) |
 | **I_Open Source Contributions** | Contributions to open-source projects and community work | [🔗](https://github.com/2897robo/GetJob/tree/main/I_Open%20Source%20Contributions) |
 | **J_Industry and Company Analysis** | Market trends, company research, and industry insights | [🔗](https://github.com/2897robo/GetJob/tree/main/J_Industry%20and%20Company%20Analysis) |
-| **K_Resumes and Cover Letters** | Resume writing and cover letter tips | [🔗](https://github.com/2897robo/GetJob/tree/main/K_Resumes%20and%20Cover%20Letters) |
+| **K_Resumes and Cover Letters** | My resume, Cover letter and Portfolio | [🔗](https://github.com/2897robo/GetJob/tree/main/K_Resumes%20and%20Cover%20Letters) |
 | **L_Interview Preparation** | Common interview questions, behavioral interview strategies, and mock interview notes | [🔗](https://github.com/2897robo/GetJob/tree/main/L_Interview%20Preparation) |
 | **M_Career**             | Career development, networking, and soft skills | [🔗](https://github.com/2897robo/GetJob/tree/main/M_Career) |
 | **N_Books**             | Summaries, reviews, and notes on technical and career-related books | [🔗](https://github.com/2897robo/GetJob/tree/main/N_Books) |
