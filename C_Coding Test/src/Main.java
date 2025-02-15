@@ -1,22 +1,22 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        List<String> words = Arrays.asList("Java", "Stream", "Lambda", "Filter");
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] subtractedParts = br.readLine().split("-"); // "-"를 기준으로 나눔
 
-        String s = words.stream()
-                .collect(Collectors.joining(","));
+        int result = 0;
+        for (int i = 0; i < subtractedParts.length; i++) {
+            int sum = 0;
+            String[] addedParts = subtractedParts[i].split("\\+"); // "+"로 나누기
+            for (String num : addedParts) {
+                sum += Integer.parseInt(num); // 숫자로 변환 후 합산
+            }
 
-        System.out.println(s);
+            if (i == 0) result += sum; // 첫 번째 그룹은 무조건 더함
+            else result -= sum; // 이후 그룹들은 괄호로 묶어서 빼줌
+        }
 
-
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        int sum = numbers.stream().mapToInt(Integer::intValue).sum();
-        double avg = numbers.stream().mapToInt(Integer::intValue).average().orElse(0.0);
-        int max = numbers.stream().mapToInt(Integer::intValue).max().orElse(0);
-        int min = numbers.stream().mapToInt(Integer::intValue).min().orElse(0);
-
-        System.out.println(sum +", " + avg +", " + max +", " + min);
+        System.out.println(result);
     }
 }
