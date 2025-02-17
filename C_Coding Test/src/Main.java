@@ -1,46 +1,28 @@
-class SharedResource {
-    private boolean available = false;
-
-    public synchronized void produce() {
-        while (available) {
-            try {
-                wait(); // 소비자가 처리할 때까지 대기
-            } catch (InterruptedException e) {}
-        }
-        System.out.println("생산 완료!");
-        available = true;
-        notify(); // 소비자 스레드를 깨움
-    }
-
-    public synchronized void consume() {
-        while (!available) {
-            try {
-                wait(); // 생산자가 만들 때까지 대기
-            } catch (InterruptedException e) {}
-        }
-        System.out.println("소비 완료!");
-        available = false;
-        notify(); // 생산자 스레드를 깨움
-    }
-}
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        SharedResource resource = new SharedResource();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-        Thread producer = new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                resource.produce();
+        String[] sArr = br.readLine().split("-");
+        int answer = 0;
+        int sum = 0;
+
+        for(int i=0; i<sArr.length; i++) {
+            sum = 0;
+            String[] parts = sArr[i].split("\\+");
+            for(String s : parts) {
+                sum += Integer.parseInt(s);
             }
-        });
+            if(i==0) answer = sum;
+            else answer -= sum;
+        }
 
-        Thread consumer = new Thread(() -> {
-            for (int i = 0; i < 5; i++) {
-                resource.consume();
-            }
-        });
+        bw.write(answer + "\n");
+        bw.flush();
+        br.close(); bw.close();
 
-        producer.start();
-        consumer.start();
     }
 }
