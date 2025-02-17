@@ -1,23 +1,46 @@
-class MyThread implements Runnable {
-    public void run() {
-        try {
-            for(int i=0; i<5; i++) {
-                System.out.println(Thread.currentThread().getName() + " 실행 중...");
-                Thread.sleep(1000);
-            }
-        } catch (InterruptedException e) {
-            System.err.println(Thread.currentThread().getName() + " 강제 종료됨!");
+class SharedResource {
+    private boolean available = false;
+
+    public synchronized void produce() {
+        while (available) {
+            try {
+                wait(); // 소비자가 처리할 때까지 대기
+            } catch (InterruptedException e) {}
         }
+        System.out.println("생산 완료!");
+        available = true;
+        notify(); // 소비자 스레드를 깨움
+    }
+
+    public synchronized void consume() {
+        while (!available) {
+            try {
+                wait(); // 생산자가 만들 때까지 대기
+            } catch (InterruptedException e) {}
+        }
+        System.out.println("소비 완료!");
+        available = false;
+        notify(); // 생산자 스레드를 깨움
     }
 }
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        Thread t1 = new Thread(new MyThread());
-        t1.start();
+    public static void main(String[] args) {
+        SharedResource resource = new SharedResource();
 
-        System.out.println("메인 스레드: t1이 종료될 때까지 대기");
-        t1.join();  // 메인 스레드가 t1 스레드가 끝날 때까지 대기
-        System.out.println("메인 스레드 종료");
+        Thread producer = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                resource.produce();
+            }
+        });
+
+        Thread consumer = new Thread(() -> {
+            for (int i = 0; i < 5; i++) {
+                resource.consume();
+            }
+        });
+
+        producer.start();
+        consumer.start();
     }
 }
