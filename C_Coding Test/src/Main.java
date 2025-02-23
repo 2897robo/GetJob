@@ -2,56 +2,48 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    private static int precedence(char c) {
+        if(c=='(' || c==')') return 0;
+        if(c=='+' || c=='-') return 1;
+        if(c=='*' || c=='/') return 2;
+        return -1;
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        String s = br.readLine();
-        Deque<Character> stack = new ArrayDeque<>();
-        int answer = 0;
-        int tmp = 1;
 
-        for(int i=0; i<s.length(); i++) {
+        String s = br.readLine();
+        StringBuilder sb = new StringBuilder();
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for(int i=0; i<s.length();i++) {
             char c = s.charAt(i);
 
-            if(c == '(') {
+            if(Character.isLetter(c)) {
+                sb.append(c);
+            } else if(c=='(') {
                 stack.push(c);
-                tmp *= 2;
-            } else if(c== '[') {
+            } else if(c==')') {
+                while(!stack.isEmpty() && stack.peek()!='(') {
+                    sb.append(stack.pop());
+                }
+                stack.pop();
+            } else {
+                while(!stack.isEmpty() && precedence(stack.peek()) >= precedence(c)) {
+                    sb.append(stack.pop());
+                }
                 stack.push(c);
-                tmp *= 3;
-            } else if(c== ')') {
-                if(stack.isEmpty() || stack.peek() != '(') {
-                    answer = 0;
-                    break;
-                }
-
-                if(s.charAt(i-1) == '(') {
-                    answer += tmp;
-                }
-
-                stack.pop();
-                tmp /= 2;
-            } else if(c==']') {
-                if(stack.isEmpty() || stack.peek() != '[') {
-                    answer = 0;
-                    break;
-                }
-
-                if(s.charAt(i-1) == '[') {
-                    answer += tmp;
-                }
-
-                stack.pop();
-                tmp /= 3;
             }
-
         }
 
-        if(!stack.isEmpty()) {
-            answer = 0;
+        while(!stack.isEmpty()) {
+            sb.append(stack.pop());
         }
-        bw.write(answer+"\n");
+
+        bw.write(sb.toString());
         bw.flush();
         br.close(); bw.close();
+
     }
 }
