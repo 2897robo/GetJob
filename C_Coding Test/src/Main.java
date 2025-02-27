@@ -2,42 +2,98 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static class Balloon {
-        private int idx;
-        private int next;
+    static class Node {
+        int stationNumber;
+        Node prev, next;
 
-        public Balloon(int idx, int next) {
-            this.idx = idx;
-            this.next = next;
+        public Node(int s) {
+            this.stationNumber = s;
         }
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int n = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        Deque<Balloon> bl = new ArrayDeque<>();
         StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-        for(int i=0; i<n; i++) {
-            bl.offer(new Balloon(i+1, Integer.parseInt(st.nextToken())));
+        Map<Integer, Node> map = new HashMap<>();
+
+        st = new StringTokenizer(br.readLine(), " ");
+        Node head = new Node(Integer.parseInt(st.nextToken()));
+        map.put(head.stationNumber, head);
+        Node prevNode = head;
+
+        for(int i=1; i<n; i++) {
+            Node current = new Node(Integer.parseInt(st.nextToken()));
+            map.put(current.stationNumber, current);
+
+            prevNode.next = current;
+            current.prev = prevNode;
+            prevNode = current;
         }
 
-        while(n-- > 0) {
-            Balloon current = bl.poll();
-            sb.append(current.idx).append(" ");
+        prevNode.next = head;
+        head.prev = prevNode;
 
-            if(bl.isEmpty()) break;
+        while(m-- > 0) {
+            st = new StringTokenizer(br.readLine(), " ");
+            String cmd = st.nextToken();
+            int i = Integer.parseInt(st.nextToken());
+            Node current = map.get(i);
 
-            int next = current.next;
-            if(next > 0) {
-                for(int i=1; i<next; i++) {
-                    bl.addLast(bl.pollFirst());
+            switch(cmd) {
+                case "BN" : {
+                    int j = Integer.parseInt(st.nextToken());
+                    sb.append(current.next.stationNumber).append("\n");
+
+                    Node newNode = new Node(j);
+                    map.put(j, newNode);
+
+                    newNode.next = current.next;
+                    newNode.prev = current;
+                    current.next.prev = newNode;
+                    current.next = newNode;
+                    break;
                 }
-            } else {
-                for(int i=0; i<Math.abs(next); i++) {
-                    bl.addFirst(bl.pollLast());
+                case "BP" : {
+                    int j = Integer.parseInt(st.nextToken());
+                    sb.append(current.prev.stationNumber).append("\n");
+
+                    Node newNode = new Node(j);
+                    map.put(j, newNode);
+
+                    newNode.prev = current.prev;
+                    newNode.next = current;
+                    current.prev.next = newNode;
+                    current.prev = newNode;
+                    break;
+                }
+                case "CN" : {
+                    if(map.size() > 2) {
+                        Node toRemove = current.next;
+                        sb.append(toRemove.stationNumber).append("\n");
+
+                        current.next = toRemove.next;
+                        toRemove.next.prev = current;
+
+                        map.remove(toRemove.stationNumber);
+                    }
+                    break;
+                }
+                case "CP" : {
+                    if(map.size() > 2) {
+                        Node toRemove = current.prev;
+                        sb.append(toRemove.stationNumber).append("\n");
+
+                        current.prev = toRemove.prev;
+                        toRemove.prev.next = current;
+
+                        map.remove(toRemove.stationNumber);
+                    }
+                    break;
                 }
             }
         }
