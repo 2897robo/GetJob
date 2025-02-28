@@ -2,12 +2,13 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static class Node {
-        int stationNumber;
-        Node prev, next;
+    static class Problem {
+        int p;
+        int l;
 
-        public Node(int s) {
-            this.stationNumber = s;
+        public Problem(int p, int l) {
+            this.p = p;
+            this.l = l;
         }
     }
 
@@ -15,84 +16,48 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
+        TreeSet<Problem> ts = new TreeSet<> ((o1, o2) -> {
+            if(o1.l == o2.l) {
+                return o1.p - o2.p;
+            }
+            return o1.l - o2.l;
+        });
+        Map<Integer, Integer> map = new HashMap<> ();
 
-        Map<Integer, Node> map = new HashMap<>();
-
-        st = new StringTokenizer(br.readLine(), " ");
-        Node head = new Node(Integer.parseInt(st.nextToken()));
-        map.put(head.stationNumber, head);
-        Node prevNode = head;
-
-        for(int i=1; i<n; i++) {
-            Node current = new Node(Integer.parseInt(st.nextToken()));
-            map.put(current.stationNumber, current);
-
-            prevNode.next = current;
-            current.prev = prevNode;
-            prevNode = current;
+        int n = Integer.parseInt(br.readLine());
+        while(n-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+            int p = Integer.parseInt(st.nextToken());
+            int l = Integer.parseInt(st.nextToken());
+            map.put(p, l);
+            ts.add(new Problem(p, l));
         }
 
-        prevNode.next = head;
-        head.prev = prevNode;
-
+        int m = Integer.parseInt(br.readLine());
         while(m-- > 0) {
-            st = new StringTokenizer(br.readLine(), " ");
+            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
             String cmd = st.nextToken();
-            int i = Integer.parseInt(st.nextToken());
-            Node current = map.get(i);
-
             switch(cmd) {
-                case "BN" : {
-                    int j = Integer.parseInt(st.nextToken());
-                    sb.append(current.next.stationNumber).append("\n");
-
-                    Node newNode = new Node(j);
-                    map.put(j, newNode);
-
-                    newNode.next = current.next;
-                    newNode.prev = current;
-                    current.next.prev = newNode;
-                    current.next = newNode;
-                    break;
-                }
-                case "BP" : {
-                    int j = Integer.parseInt(st.nextToken());
-                    sb.append(current.prev.stationNumber).append("\n");
-
-                    Node newNode = new Node(j);
-                    map.put(j, newNode);
-
-                    newNode.prev = current.prev;
-                    newNode.next = current;
-                    current.prev.next = newNode;
-                    current.prev = newNode;
-                    break;
-                }
-                case "CN" : {
-                    if(map.size() > 2) {
-                        Node toRemove = current.next;
-                        sb.append(toRemove.stationNumber).append("\n");
-
-                        current.next = toRemove.next;
-                        toRemove.next.prev = current;
-
-                        map.remove(toRemove.stationNumber);
+                case "recommend" : {
+                    int x = Integer.parseInt(st.nextToken());
+                    if(x==1) {
+                        sb.append(ts.last().p).append("\n");
+                    } else {
+                        sb.append(ts.first().p).append("\n");
                     }
                     break;
                 }
-                case "CP" : {
-                    if(map.size() > 2) {
-                        Node toRemove = current.prev;
-                        sb.append(toRemove.stationNumber).append("\n");
-
-                        current.prev = toRemove.prev;
-                        toRemove.prev.next = current;
-
-                        map.remove(toRemove.stationNumber);
-                    }
+                case "add" : {
+                    int p = Integer.parseInt(st.nextToken());
+                    int l = Integer.parseInt(st.nextToken());
+                    ts.add(new Problem(p, l));
+                    map.put(p, l);
+                    break;
+                }
+                case "solved" : {
+                    int p = Integer.parseInt(st.nextToken());
+                    int l = map.get(p);
+                    ts.remove(new Problem(p, l));
                     break;
                 }
             }
