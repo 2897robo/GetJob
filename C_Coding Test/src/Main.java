@@ -2,70 +2,46 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static class Problem {
-        int p;
-        int l;
-
-        public Problem(int p, int l) {
-            this.p = p;
-            this.l = l;
-        }
-    }
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringBuilder sb = new StringBuilder();
-        TreeSet<Problem> ts = new TreeSet<> ((o1, o2) -> {
-            if(o1.l == o2.l) {
-                return o1.p - o2.p;
-            }
-            return o1.l - o2.l;
-        });
-        Map<Integer, Integer> map = new HashMap<> ();
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+        int n = Integer.parseInt(st.nextToken());
+        long m = Long.parseLong(st.nextToken());
+        long h = 0;
 
-        int n = Integer.parseInt(br.readLine());
-        while(n-- > 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            int p = Integer.parseInt(st.nextToken());
-            int l = Integer.parseInt(st.nextToken());
-            map.put(p, l);
-            ts.add(new Problem(p, l));
+        st = new StringTokenizer(br.readLine(), " ");
+        long[] nArr = new long[n];
+        long max = 0;
+        for(int i=0; i<n; i++) {
+            nArr[i] = Long.parseLong(st.nextToken());
+            max = Math.max(nArr[i], max);
         }
 
-        int m = Integer.parseInt(br.readLine());
-        while(m-- > 0) {
-            StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-            String cmd = st.nextToken();
-            switch(cmd) {
-                case "recommend" : {
-                    int x = Integer.parseInt(st.nextToken());
-                    if(x==1) {
-                        sb.append(ts.last().p).append("\n");
-                    } else {
-                        sb.append(ts.first().p).append("\n");
-                    }
-                    break;
-                }
-                case "add" : {
-                    int p = Integer.parseInt(st.nextToken());
-                    int l = Integer.parseInt(st.nextToken());
-                    ts.add(new Problem(p, l));
-                    map.put(p, l);
-                    break;
-                }
-                case "solved" : {
-                    int p = Integer.parseInt(st.nextToken());
-                    int l = map.get(p);
-                    ts.remove(new Problem(p, l));
-                    break;
-                }
+        long left = 0;
+        long right = max;
+
+        while(left <= right) {
+            long mid = left + (right - left) / 2;
+            long sum = 0;
+
+            sum = Arrays.stream(nArr)
+                    .filter(i -> i > mid)
+                    .map(i -> i - mid)
+                    .sum();
+
+            if(sum >= m) {
+                h = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
 
-        bw.write(sb.toString());
+
+        bw.write(h + "\n");
         bw.flush();
-        br.close(); bw.close();
-
+        br.close();
+        bw.close();
     }
 }
