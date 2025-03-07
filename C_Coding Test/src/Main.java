@@ -7,39 +7,39 @@ public class Main {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int n = Integer.parseInt(st.nextToken());
-        long m = Long.parseLong(st.nextToken());
-        long h = 0;
-
-        st = new StringTokenizer(br.readLine(), " ");
-        long[] nArr = new long[n];
-        long max = 0;
+        int c = Integer.parseInt(st.nextToken());
+        int[] nArr = new int[n];
         for(int i=0; i<n; i++) {
-            nArr[i] = Long.parseLong(st.nextToken());
-            max = Math.max(nArr[i], max);
+            nArr[i] = Integer.parseInt(br.readLine());
         }
 
-        long left = 0;
-        long right = max;
+        Arrays.sort(nArr);
+
+        int left = 1;
+        int right = nArr[n-1] - nArr[0];
+        int answer = 0;
 
         while(left <= right) {
-            long mid = left + (right - left) / 2;
-            long sum = 0;
+            int mid = left + (right - left) / 2;
+            int count = 1;
+            int prevHouse = nArr[0];
 
-            sum = Arrays.stream(nArr)
-                    .filter(i -> i > mid)
-                    .map(i -> i - mid)
-                    .sum();
+            for(int i=1; i<n; i++) {
+                if(nArr[i] - prevHouse >= mid) {
+                    count++;
+                    prevHouse = nArr[i];
+                }
+            }
 
-            if(sum >= m) {
-                h = mid;
+            if(count >= c) {
+                answer = mid;
                 left = mid + 1;
             } else {
                 right = mid - 1;
             }
         }
 
-
-        bw.write(h + "\n");
+        bw.write(answer + "\n");
         bw.flush();
         br.close();
         bw.close();
