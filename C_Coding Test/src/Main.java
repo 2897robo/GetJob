@@ -5,37 +5,26 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        int n = Integer.parseInt(st.nextToken());
-        int c = Integer.parseInt(st.nextToken());
-        int[] nArr = new int[n];
-        for(int i=0; i<n; i++) {
-            nArr[i] = Integer.parseInt(br.readLine());
-        }
+        int n = Integer.parseInt(br.readLine());
+        int k = Integer.parseInt(br.readLine());
 
-        Arrays.sort(nArr);
-
-        int left = 1;
-        int right = nArr[n-1] - nArr[0];
-        int answer = 0;
+        long left = 1;
+        long right = k;
+        long answer = 0;
 
         while(left <= right) {
-            int mid = left + (right - left) / 2;
-            int count = 1;
-            int prevHouse = nArr[0];
+            long mid = left + (right - left) / 2;
+            long count = 0;
 
-            for(int i=1; i<n; i++) {
-                if(nArr[i] - prevHouse >= mid) {
-                    count++;
-                    prevHouse = nArr[i];
-                }
+            for(int i=1; i<=n; i++) {
+                count += Math.min(mid / i, n);
             }
 
-            if(count >= c) {
+            if(count >= k) {
                 answer = mid;
-                left = mid + 1;
-            } else {
                 right = mid - 1;
+            } else {
+                left = mid + 1;
             }
         }
 
