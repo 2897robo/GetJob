@@ -5,10 +5,9 @@ public class Main {
     static int n, m;
     static int[] arr;
     static int[] answer;
-    static boolean[] visited;
     static StringBuilder sb = new StringBuilder();
 
-    static void dfs(int depth, int start, boolean[] used) {
+    static void dfs(int depth, int start) {
         if (depth == m) {
             for (int num : answer) {
                 sb.append(num).append(" ");
@@ -19,14 +18,11 @@ public class Main {
 
         int prev = -1;
         for (int i = start; i < n; i++) {
-            if (visited[i] || arr[i] == prev) continue;
-            visited[i] = true;
+            if (arr[i] == prev) continue;
             answer[depth] = arr[i];
             prev = arr[i];
 
-            dfs(depth + 1, i, used);
-
-            visited[i] = false;
+            dfs(depth + 1, i);
         }
     }
 
@@ -39,7 +35,6 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
         arr = new int[n];
         answer = new int[m];
-        visited = new boolean[n];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
@@ -47,7 +42,7 @@ public class Main {
         }
 
         Arrays.sort(arr); // 사전순을 위해 정렬
-        dfs(0, 0, visited);
+        dfs(0, 0);
 
         bw.write(sb.toString());
         bw.flush();
