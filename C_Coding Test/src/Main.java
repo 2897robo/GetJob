@@ -2,49 +2,57 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int n, m;
-    static int[] arr;
-    static int[] answer;
-    static StringBuilder sb = new StringBuilder();
+    static int n,m, answer;
+    static List<Integer>[] graph;
+    static boolean visited[];
 
-    static void dfs(int depth, int start) {
-        if (depth == m) {
-            for (int num : answer) {
-                sb.append(num).append(" ");
-            }
-            sb.append("\n");
+    static void dfs(int now, int depth) {
+        if(depth == 5) {
+            answer = 1;
             return;
         }
 
-        int prev = -1;
-        for (int i = start; i < n; i++) {
-            if (arr[i] == prev) continue;
-            answer[depth] = arr[i];
-            prev = arr[i];
+        visited[now] = true;
 
-            dfs(depth + 1, i);
+        for(int next : graph[now]) {
+            if(!visited[next]) {
+                dfs(next, depth+1);
+            }
         }
+
+        visited[now] = false;
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        arr = new int[n];
-        answer = new int[m];
 
-        st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+        graph = new ArrayList[n];
+        for(int i=0; i<n; i++) {
+            graph[i] = new ArrayList<> ();
         }
 
-        Arrays.sort(arr); // 사전순을 위해 정렬
-        dfs(0, 0);
+        int a, b;
+        for(int i=0; i<m; i++) {
+            st = new StringTokenizer(br.readLine());
+            a = Integer.parseInt(st.nextToken());
+            b = Integer.parseInt(st.nextToken());
+            graph[a].add(b);
+            graph[b].add(a);
+        }
 
-        bw.write(sb.toString());
+        visited = new boolean[n];
+
+        for(int i=0; i<n; i++) {
+            Arrays.fill(visited, false);
+            dfs(i, 1);
+            if(answer == 1) break;
+        }
+
+        bw.write(answer + "");
         bw.flush();
         br.close();
         bw.close();
