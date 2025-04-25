@@ -2,59 +2,69 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int n,m, answer;
-    static List<Integer>[] graph;
-    static boolean visited[];
+    static int[][] arr = new int[9][9];
+    static ArrayList<int[]> blanks = new ArrayList<>();
+    static StringBuilder sb = new StringBuilder();
 
-    static void dfs(int now, int depth) {
-        if(depth == 5) {
-            answer = 1;
-            return;
+    public static void sudoku(int depth) {
+        if(depth == blanks.size()) {
+            for(int i=0; i<9; i++) {
+                for(int j=0; j<9; j++) {
+                    sb.append(arr[i][j]).append(" ");
+                }
+                sb.append("\n");
+            }
+            System.out.println(sb.toString());
+            System.exit(0);
         }
 
-        visited[now] = true;
+        int[] current = blanks.get(depth);
+        int row = current[0];
+        int col = current[1];
 
-        for(int next : graph[now]) {
-            if(!visited[next]) {
-                dfs(next, depth+1);
+        for(int num=1; num<=9; num++) {
+            if(isValid(row, col, num)) {
+                arr[row][col] = num;
+                sudoku(depth+1);
+                arr[row][col] = 0;
+            }
+        }
+    }
+
+    public static boolean isValid(int row, int col, int num) {
+        for(int i=0; i<9; i++) {
+            if(arr[row][i] == num) return false;
+        }
+        for(int i=0; i<9; i++) {
+            if(arr[i][col] == num) return false;
+        }
+
+        int startRow = (row/3) * 3;
+        int startCol = (col/3) * 3;
+
+        for(int i = startRow; i<startRow+3; i++) {
+            for(int j = startCol; j<startCol+3; j++) {
+                if(arr[i][j] == num) return false;
             }
         }
 
-        visited[now] = false;
+        return true;
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
 
-        graph = new ArrayList[n];
-        for(int i=0; i<n; i++) {
-            graph[i] = new ArrayList<> ();
+        for(int i=0; i<9; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for(int j=0; j<9; j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+                if (arr[i][j] == 0) {
+                    blanks.add(new int[]{i, j});
+                }
+            }
         }
-
-        int a, b;
-        for(int i=0; i<m; i++) {
-            st = new StringTokenizer(br.readLine());
-            a = Integer.parseInt(st.nextToken());
-            b = Integer.parseInt(st.nextToken());
-            graph[a].add(b);
-            graph[b].add(a);
-        }
-
-        visited = new boolean[n];
-
-        for(int i=0; i<n; i++) {
-            Arrays.fill(visited, false);
-            dfs(i, 1);
-            if(answer == 1) break;
-        }
-
-        bw.write(answer + "");
-        bw.flush();
         br.close();
-        bw.close();
+
+        sudoku(0);
     }
 }
