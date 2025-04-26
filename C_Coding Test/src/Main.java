@@ -2,69 +2,41 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int[][] arr = new int[9][9];
-    static ArrayList<int[]> blanks = new ArrayList<>();
-    static StringBuilder sb = new StringBuilder();
+    static int n;
+    static boolean found = false;
 
-    public static void sudoku(int depth) {
-        if(depth == blanks.size()) {
-            for(int i=0; i<9; i++) {
-                for(int j=0; j<9; j++) {
-                    sb.append(arr[i][j]).append(" ");
-                }
-                sb.append("\n");
-            }
-            System.out.println(sb.toString());
-            System.exit(0);
+    public static boolean isGood(String s) {
+        int len = s.length();
+        for(int i=1; i<=len/2; i++) {
+            String a = s.substring(len - i * 2, len - i);
+            String b = s.substring(len - i);
+            if(a.equals(b)) return false;
         }
-
-        int[] current = blanks.get(depth);
-        int row = current[0];
-        int col = current[1];
-
-        for(int num=1; num<=9; num++) {
-            if(isValid(row, col, num)) {
-                arr[row][col] = num;
-                sudoku(depth+1);
-                arr[row][col] = 0;
-            }
-        }
+        return true;
     }
 
-    public static boolean isValid(int row, int col, int num) {
-        for(int i=0; i<9; i++) {
-            if(arr[row][i] == num) return false;
-        }
-        for(int i=0; i<9; i++) {
-            if(arr[i][col] == num) return false;
+    public static void dfs(String s) {
+        if(found) return;
+
+        if(s.length() == n) {
+            System.out.println(s);
+            found = true;
+            return;
         }
 
-        int startRow = (row/3) * 3;
-        int startCol = (col/3) * 3;
-
-        for(int i = startRow; i<startRow+3; i++) {
-            for(int j = startCol; j<startCol+3; j++) {
-                if(arr[i][j] == num) return false;
+        for(int i=1; i<=3; i++) {
+            String next = s+i;
+            if(isGood(next)) {
+                dfs(next);
             }
         }
-
-        return true;
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        for(int i=0; i<9; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            for(int j=0; j<9; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-                if (arr[i][j] == 0) {
-                    blanks.add(new int[]{i, j});
-                }
-            }
-        }
+        n = Integer.parseInt(br.readLine());
         br.close();
 
-        sudoku(0);
+        dfs("");
     }
 }
